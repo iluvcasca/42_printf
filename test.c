@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:44:23 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/06 17:26:57 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/07 19:52:44 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int main ()
 {
-    char * str = "want to build my keyboard";
-    char * current_char = str;
-    char p;
-    char c;
-    int i = 0; 
+    char * str = "want to build %% my keyboard";
+    // char * current_char = str;
+    // char p;
+    // char c;
+    // int i = 0; 
     // while (str[i])
     // {
     //     p = peek(&str, 0);
