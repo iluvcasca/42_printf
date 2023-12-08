@@ -6,11 +6,12 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 19:19:15 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/07 19:49:57 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/08 19:15:01 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft.h"
 
 int ft_printf(const char * format,...)
 {
@@ -54,6 +55,54 @@ void lexer_putchar(char current_char, t_lexer_status * lexer_status)
     lexer_status->printed_count++;
 }
 
+void lexer_putstr(t_lexer_status * lexer_status, va_list ap)
+{
+    size_t i;
+    char * str;
+
+    i = 0;
+    str = va_arg(ap, char *); 
+    if (str == NULL)
+        str = "(null)";
+    while (str[i])
+        lexer_putchar(str[i++], lexer_status);
+    lexer_status->lexer_state = STRING_LITTERAL;
+}
+
+void lexer_pointer(t_lexer_status * lexer_status, va_list ap)
+{ 
+    uintptr_t p;
+    char * table;
+    size_t i;
+
+    i = 0;
+    table = "(nil)"; 
+    p = (uintptr_t)va_arg(ap, void *);
+    if (!p)
+    {
+        while (table[i])
+            lexer_putchar (table[i++], lexer_status);
+    }
+    else
+    {
+        lexer_putchar('0', lexer_status);
+        lexer_putchar('x', lexer_status);
+        printf_convert_base(p, lexer_status);  
+    }
+}
+
+void printf_convert_base (uintptr_t p, t_lexer_status * lexer_status)
+{
+    char * table;
+
+    table = "0123456789abcdef";
+    if (p)
+        printf_convert_base(p/16, lexer_status);
+    else
+        return;
+    lexer_putchar (table[p % 16], lexer_status);
+}
+
 void lexer_placeholder(char ** format, t_lexer_status * lexer_status, va_list ap)
 {
     char current_char;
@@ -64,6 +113,11 @@ void lexer_placeholder(char ** format, t_lexer_status * lexer_status, va_list ap
             {
                 lexer_status->lexer_state = STRING_LITTERAL;
                 lexer_putchar(current_char, lexer_status);
+            }
+            else if(current_char == 'p')
+            {
+                lexer_status->lexer_state = STRING_LITTERAL;
+                lexer_pointer(lexer_status, ap);
             }
             consume(format, 0);
         }

@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:24:10 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/07 17:36:46 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/08 15:47:58 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,14 @@ int main()
     // printf("%%x        : %#3.x\n", (unsigned int)-1);
     // printf("%%f        : %#f\n", -1.01264567);
     // printf("%%f        : %#.3f\n", -1.01264567);
-    long d = printf("%-4.3s", "hello");
+    char * test = "";
+    int a = sizeof(char *);
+    int b = sizeof(int *);
+    int c = sizeof (long);
+    unsigned long e = (unsigned long)(test);
+    printf("%p\n" , test);
+    printf("0x%lx\n" , e);
+    long d = printf("%p", (char *)NULL);
     printf("\n%ld", d);
     return (1);
 }

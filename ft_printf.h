@@ -6,13 +6,14 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:43:04 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/07 19:50:26 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/08 19:10:27 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 #define FT_PRINTF_H
 #include <stdarg.h>
+#include <stdint.h>
 #include <unistd.h>
 #include <limits.h>
 typedef enum e_lexer_state {
@@ -34,5 +35,7 @@ char consume(char ** format, int index);
 int lexer (char ** format, va_list ap);
 void lexer_string(char ** format, t_lexer_status * lexer_status);
 void lexer_putchar(char current_char, t_lexer_status * lexer_status);
-void lexer_placeholder(char ** format, t_lexer_status * lexer_status, va_list ap);
+void lexer_putstr(t_lexer_status * lexer_status, va_list ap);
+void lexer_pointer(t_lexer_status * lexer_status, va_list ap);
+void printf_convert_base (uintptr_t p, t_lexer_status * lexer_status);
 #endif
