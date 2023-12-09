@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:43:04 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/08 19:10:27 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/09 22:25:36 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,18 @@
 #include <stdint.h>
 #include <unistd.h>
 #include <limits.h>
+#include "libft.h"
+#include <stdlib.h>
 typedef enum e_lexer_state {
         ERROR = -1,
         STRING_LITTERAL = 1,
         FORMAT_PlACEHOLDER = 2,
     }t_lexer_state ;
+
+typedef enum e_case {
+    UPPERCASE,
+    LOWERCASE,
+}t_case;
 
 typedef struct s_lexer_status
 {
@@ -37,5 +44,11 @@ void lexer_string(char ** format, t_lexer_status * lexer_status);
 void lexer_putchar(char current_char, t_lexer_status * lexer_status);
 void lexer_putstr(t_lexer_status * lexer_status, va_list ap);
 void lexer_pointer(t_lexer_status * lexer_status, va_list ap);
-void printf_convert_base (uintptr_t p, t_lexer_status * lexer_status);
+void printf_convert_pointer (uintptr_t p, t_lexer_status * lexer_status);
+void lexer_placeholder(char ** format, t_lexer_status * lexer_status, va_list ap);
+void lexer_put_integer (t_lexer_status * lexer_status, va_list ap);
+void lexer_put_unsignedinteger (t_lexer_status * lexer_status, va_list ap);
+void	printf_utoa(unsigned int u, t_lexer_status * lexer_status);
+void printf_convert_hexa (unsigned int x, t_lexer_status * lexer_status, t_case _case);
+void lexer_put_hexa (t_lexer_status * lexer_status, t_case _case , va_list ap);
 #endif

@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:44:23 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/08 19:04:21 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/09 22:30:30 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 #include <stdio.h>
 int main ()
 {
-    char * str = "want to build %% my %p keyboard %p";
-    char * str1 = "awesome";
-    char * str2 = NULL;
+    char * str = "want to build %% my %x keyboard %X";
+    unsigned int int2 = (unsigned int)-1;
+    unsigned int int1 = 0;
+    // int int1 = INT_MIN;
+    // int int2 = INT_MAX;
+    // char * str1 = "awesome";
+    // char * str2 = NULL;
     // char * current_char = str;
     // char p;
     // char c;
@@ -28,8 +32,14 @@ int main ()
     //     c = consume(&str, 1);
     //     i++;
     // }
-    ft_printf((const char *)str, str1, str2);
+    // ft_printf((const char *)str, str1, str2);
+    // printf("\n");
+    // printf((const char *)str ,str1, str2);
+    long a = ft_printf((const char *)str, int1, int2);
     printf("\n");
-    printf((const char *)str ,str1, str2);
+    long b = printf((const char *)str ,int1, int2);
+    printf("\n%li", a);
+    printf("\n%li", b);
+
     return (1);
 }
