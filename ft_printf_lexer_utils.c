@@ -6,15 +6,15 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:25:53 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/09 15:26:23 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/10 16:38:42 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char peek(char ** format, int index)
+char peek(char * format, int index)
 {
-    return (**(format + index));
+    return (*(format + index));
 }
 
 unsigned int isEOF (char * format, int index)

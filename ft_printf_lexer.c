@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:21:16 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/09 22:27:17 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/10 17:19:46 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 int lexer (char ** format, va_list ap)
 {
-    static t_lexer_status lexer_status;
+    t_lexer_status lexer_status;
     char current_char; 
 
     lexer_status.lexer_state = STRING_LITTERAL;
+    lexer_status.printed_count = 0;
+    lexer_status.return_value = 0;
     while(!isEOF(*format,0))
     {
         lexer_string(format, &lexer_status);
@@ -28,24 +30,43 @@ int lexer (char ** format, va_list ap)
     return (lexer_status.return_value);
 }
 
+void lexer_string(char ** format, t_lexer_status * lexer_status)
+{
+    char current_char;
+    while(lexer_status->lexer_state == STRING_LITTERAL && !isEOF(*format, 0)) 
+        {
+            current_char = peek(*format, 0);             
+            if (current_char == '%')
+                lexer_status->lexer_state = FORMAT_PlACEHOLDER;
+            else
+            {
+                lexer_putchar(current_char, lexer_status);
+                consume(format, 0);
+            }
+        }
+}
+
 void lexer_placeholder(char ** format, t_lexer_status * lexer_status, va_list ap)
 {
     char current_char;
     while(lexer_status->lexer_state == FORMAT_PlACEHOLDER && !isEOF(*format, 0)) 
         {
-            current_char = peek(format, 0);             
+            current_char = peek(*format, 1);             
             if (current_char == '%')
             {
-                lexer_status->lexer_state = STRING_LITTERAL;
                 lexer_putchar(current_char, lexer_status);
+                lexer_status->lexer_state = STRING_LITTERAL;
+                consume(format, 1);
             }
-            else if (current_char == 'x')
-                lexer_put_hexa(lexer_status, LOWERCASE, ap);
-            else if (current_char == 'X')
-                lexer_put_hexa(lexer_status, UPPERCASE, ap);
-
-            consume(format, 0);
+            else
+                lexer_flags(format, lexer_status, ap);
         }
+}
+
+void lexer_flags(char ** format, t_lexer_status * lexer_status, va_list ap)
+{
+    t_lexer_flags lexer_flags ;
+    lexer_flags = (t_lexer_flags){};
 }
 
  void lexer_putstr(t_lexer_status * lexer_status, va_list ap)
@@ -85,16 +106,4 @@ void lexer_pointer(t_lexer_status * lexer_status, va_list ap)
     lexer_status->lexer_state = STRING_LITTERAL;
 }
 
-void lexer_string(char ** format, t_lexer_status * lexer_status)
-{
-    char current_char;
-    while(lexer_status->lexer_state == STRING_LITTERAL && !isEOF(*format, 0)) 
-        {
-            current_char = peek(format, 0);             
-            if (current_char == '%')
-                lexer_status->lexer_state = FORMAT_PlACEHOLDER;
-            else
-                lexer_putchar(current_char, lexer_status);
-            consume(format, 0);
-        }
-}
+

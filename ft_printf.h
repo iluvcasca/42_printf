@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:43:04 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/09 22:25:36 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/10 17:19:55 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,19 @@ typedef struct s_lexer_status
         int return_value; 
         int printed_count;
 } t_lexer_status;
+
+typedef struct s_lexer_flags
+{
+    unsigned int minus;
+    unsigned int zero;
+    unsigned int plus;
+    unsigned int space;
+    unsigned int hash;
+} t_lexer_flags;
+
 int ft_printf(const char * format,...);
 unsigned int isEOF (char * format, int index);
-char peek(char ** format, int index);
+char peek(char * format, int index);
 char consume(char ** format, int index);
 int lexer (char ** format, va_list ap);
 void lexer_string(char ** format, t_lexer_status * lexer_status);
@@ -51,4 +61,5 @@ void lexer_put_unsignedinteger (t_lexer_status * lexer_status, va_list ap);
 void	printf_utoa(unsigned int u, t_lexer_status * lexer_status);
 void printf_convert_hexa (unsigned int x, t_lexer_status * lexer_status, t_case _case);
 void lexer_put_hexa (t_lexer_status * lexer_status, t_case _case , va_list ap);
+void lexer_flags(char ** format, t_lexer_status * lexer_status, va_list ap);
 #endif
