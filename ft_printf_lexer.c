@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:21:16 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/10 17:19:46 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/11 18:25:33 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void lexer_string(char ** format, t_lexer_status * lexer_status)
 void lexer_placeholder(char ** format, t_lexer_status * lexer_status, va_list ap)
 {
     char current_char;
-    while(lexer_status->lexer_state == FORMAT_PlACEHOLDER && !isEOF(*format, 0)) 
+    while(lexer_status->lexer_state == FORMAT_PlACEHOLDER && !isEOF(*format, 1)) // if ?
         {
             current_char = peek(*format, 1);             
             if (current_char == '%')
@@ -59,14 +59,64 @@ void lexer_placeholder(char ** format, t_lexer_status * lexer_status, va_list ap
                 consume(format, 1);
             }
             else
+            {
+                lexer_status->lexer_state = FLAGS;
                 lexer_flags(format, lexer_status, ap);
+            }
         }
 }
 
 void lexer_flags(char ** format, t_lexer_status * lexer_status, va_list ap)
 {
-    t_lexer_flags lexer_flags ;
-    lexer_flags = (t_lexer_flags){};
+    char current_char;
+    size_t i;
+
+    lexer_status->lexer_flags = (t_lexer_flags){};
+    i = 1;
+
+    while(lexer_status->lexer_state == FLAGS && !isEOF(*format, i))
+    {
+        current_char = peek(*format, i++); 
+        if (current_char == '-')
+            lexer_status->lexer_flags.minus++;
+        else if (current_char == '0')
+            lexer_status->lexer_flags.zero++;
+        else if (current_char == '#')
+                lexer_status->lexer_flags.hash++;
+        else if (current_char == ' ')
+                lexer_status->lexer_flags.space++;
+        else if (current_char == '+')
+                lexer_status->lexer_flags.plus++;
+        else
+            lexer_status->lexer_state = WIDTH;
+    }
+    lexer_width(i, format, lexer_status, ap);
+}
+
+void lexer_width(int i, char ** format, t_lexer_status * lexer_status, va_list ap)
+{
+    char current_char;
+    int integer;
+
+    lexer_status->width = 0;     
+    integer = 0;
+    while (lexer_status->lexer_state == WIDTH && !isEOF(*format, i))
+    {
+        current_char = peek(*format, i);
+        if (ft_isdigit(current_char))
+        {
+            integer = integer * 10 + '0' - current_char;
+            i++;
+        }
+        else 
+            lexer_status->lexer_state = PRECISION;  
+    }
+    lexer_precision(i, format, lexer_status, ap);
+}
+
+void lexer_precision(int i, char ** format, t_lexer_status * lexer_status, va_list ap)
+{
+
 }
 
  void lexer_putstr(t_lexer_status * lexer_status, va_list ap)
