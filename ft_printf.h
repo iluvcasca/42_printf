@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:43:04 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/11 18:25:09 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/13 17:42:55 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef enum e_lexer_state {
         FLAGS = 3,
         WIDTH = 4,
         PRECISION = 5,
+        TYPE,
     }t_lexer_state ;
 
 typedef enum e_case {
@@ -42,11 +43,20 @@ typedef struct s_lexer_flags
     unsigned int hash;
 } t_lexer_flags;
 
+typedef struct s_precision {
+            typedef enum e_precision_exist {
+                FALSE,
+                TRUE,
+            } t_precision_exist;
+            int value;
+        } t_precision;
+
 typedef struct s_lexer_status
 {
         t_lexer_state lexer_state;
         t_lexer_flags lexer_flags;
         int width;
+        t_precision precision;
         int return_value; 
         int printed_count;
 } t_lexer_status;
