@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:44:23 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/13 17:27:01 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/14 18:35:22 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 int main ()
 {
     // char * str = "want to build %% my %# 00--9999999999i keyboard %i\n";
-    unsigned int int2 = (unsigned int)-1;
-    unsigned int int1 = 0;
-    // int int1 = INT_MIN;
-    // int int2 = INT_MAX;
+    // char * str = "want to build my %# 00--2147483648.2147483648i keyboard %i\n";
+    // unsigned int int2 = (unsigned int)-1;
+    // unsigned int int1 = 0;
+    int int1 = INT_MIN;
+    int int2 = INT_MAX;
     // char * str1 = "awesome";
     // char * str2 = NULL;
     // char * current_char = str;
@@ -42,7 +43,7 @@ int main ()
     // printf("\n%li", a);
     // printf("\n%li", x);
     // printf("\n%li\n", b);
-    long g = printf("%.s","hi");
+    long g = printf("% .3i", 3);
     printf("\n%li",g);
 
     return (1);

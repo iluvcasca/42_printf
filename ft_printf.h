@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:43:04 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/13 17:42:55 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/14 18:25:43 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,23 @@ typedef struct s_lexer_flags
     unsigned int plus;
     unsigned int space;
     unsigned int hash;
+    size_t i;
 } t_lexer_flags;
 
-typedef struct s_precision {
-            typedef enum e_precision_exist {
+typedef enum e_precision_exist {
                 FALSE,
                 TRUE,
             } t_precision_exist;
-            int value;
+
+typedef struct s_precision {
+    t_precision_exist precision_exist;
+                        int value;
         } t_precision;
+
+typedef struct s_state_map { 
+    t_lexer_state current_state;
+    t_lexer_state next_state;
+} t_state_map;
 
 typedef struct s_lexer_status
 {
@@ -78,8 +86,10 @@ void lexer_put_unsignedinteger (t_lexer_status * lexer_status, va_list ap);
 void	printf_utoa(unsigned int u, t_lexer_status * lexer_status);
 void printf_convert_hexa (unsigned int x, t_lexer_status * lexer_status, t_case _case);
 void lexer_put_hexa (t_lexer_status * lexer_status, t_case _case , va_list ap);
-void lexer_flags(char ** format, t_lexer_status * lexer_status, va_list ap);
+void lexer_flags(char ** format, t_lexer_status * lexer_status);
 void lexer_is_valid_flags(char ** format, t_lexer_status * lexer_status);
-void    lexer_width(int i, char ** format, t_lexer_status * lexer_status, va_list ap);
-void lexer_precision(int i, char ** format, t_lexer_status * lexer_status, va_list ap);
+void    lexer_width(char ** format, t_lexer_status * lexer_status);
+void lexer_precision(char ** format, t_lexer_status * lexer_status);
+void lexer_atoi(char ** format, t_lexer_status * lexer_status, int * value, t_state_map state_map);
+void lexer_type(char ** format, t_lexer_status * lexer_status, va_list ap);
 #endif
