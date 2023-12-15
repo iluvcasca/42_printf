@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:43:04 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/15 12:21:07 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/15 14:21:37 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,5 @@ void lexer_precision(char ** format, t_lexer_status * lexer_status);
 void lexer_atoi(char ** format, t_lexer_status * lexer_status, int * value, t_state_map state_map);
 void lexer_type(char ** format, t_lexer_status * lexer_status, va_list ap);
 void process_type(char ** format, t_lexer_status * lexer_status, void * arg, void (*put_type)(t_lexer_status * lexer_status, void * arg));
+void lexer_type2(char ** format, t_lexer_status * lexer_status, va_list ap);
 #endif

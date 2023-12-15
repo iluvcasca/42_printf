@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:21:16 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/15 13:35:34 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/15 14:43:26 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 // la plupars des isEOF ne serve a rien
@@ -164,6 +164,7 @@ void lexer_type(char ** format, t_lexer_status * lexer_status, va_list ap)
             process_type(format, lexer_status, (va_arg(ap, char *)), lexer_putchar);
         else if (current_char == 'p')
             process_type(format, lexer_status, &((uintptr_t){(uintptr_t)va_arg(ap, void *)}), lexer_pointer);
+        lexer_type2(format ,lexer_status, ap);
         else
         {
             lexer_putchar(lexer_status, &((char){'%'}));
@@ -171,6 +172,22 @@ void lexer_type(char ** format, t_lexer_status * lexer_status, va_list ap)
         }
     }
     lexer_status->lexer_state = STRING_LITTERAL; 
+}
+
+void lexer_type2(char ** format, t_lexer_status * lexer_status, va_list ap)
+{
+    char current_char;
+
+    current_char = peek(*format, lexer_status->lexer_flags.i);
+    if (current_char == 'd' || current_char == 'i')
+        process_type(format, lexer_status, &current_char, lexer_put_integer);
+    else if (current_char == 'u')
+        process_type(format, lexer_status, &((char){(va_arg(ap, int))}), lexer_put_unsignedinteger);
+    else if (current_char == 'x')
+        process_type(format, lexer_status, (va_arg(ap, char *)), lexer_putchar);
+    else if (current_char == 'X')
+        process_type(format, lexer_status, &((uintptr_t){(uintptr_t)va_arg(ap, void *)}), lexer_pointer);
+    // lexer_type2(format ,lexer_status, ap);
 }
 
 void process_type(char ** format, t_lexer_status * lexer_status, void * arg, void (*put_type)(t_lexer_status *, void *))
