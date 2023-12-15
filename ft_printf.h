@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:43:04 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/14 18:25:43 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/15 12:21:07 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char peek(char * format, int index);
 char consume(char ** format, int index);
 int lexer (char ** format, va_list ap);
 void lexer_string(char ** format, t_lexer_status * lexer_status);
-void lexer_putchar(char current_char, t_lexer_status * lexer_status);
+void lexer_putchar(t_lexer_status * lexer_status, void * current_char);
 void lexer_putstr(t_lexer_status * lexer_status, va_list ap);
 void lexer_pointer(t_lexer_status * lexer_status, va_list ap);
 void printf_convert_pointer (uintptr_t p, t_lexer_status * lexer_status);
@@ -92,4 +92,5 @@ void    lexer_width(char ** format, t_lexer_status * lexer_status);
 void lexer_precision(char ** format, t_lexer_status * lexer_status);
 void lexer_atoi(char ** format, t_lexer_status * lexer_status, int * value, t_state_map state_map);
 void lexer_type(char ** format, t_lexer_status * lexer_status, va_list ap);
+void process_type(char ** format, t_lexer_status * lexer_status, void * arg, void (*put_type)(t_lexer_status * lexer_status, void * arg));
 #endif

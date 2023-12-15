@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:44:23 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/14 18:35:22 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/15 12:37:38 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int main ()
 {
     // char * str = "want to build %% my %# 00--9999999999i keyboard %i\n";
     // char * str = "want to build my %# 00--2147483648.2147483648i keyboard %i\n";
+    char * str = "want to build my %47483648.2147483647%i keyboard %00--##  \n";
     // unsigned int int2 = (unsigned int)-1;
     // unsigned int int1 = 0;
     int int1 = INT_MIN;
@@ -37,14 +38,16 @@ int main ()
     // printf("\n");
     // printf((const char *)str ,str1, str2);
     // long a = ft_printf((const char *)str, int1, int2);
+    long a = ft_printf((const char *)str);
+    long b = printf((const char *)str);
     // long x = ft_printf(" ");
     // printf("\n");
     // long b = printf((const char *)str ,int1, int2);
-    // printf("\n%li", a);
+    printf("\n%li", a);
     // printf("\n%li", x);
-    // printf("\n%li\n", b);
-    long g = printf("% .3i", 3);
-    printf("\n%li",g);
+    printf("\n%li\n", b);
+    // long g = printf("%0.3^i", 3);
+    // printf("\n%li",g);
 
     return (1);
 }
