@@ -6,11 +6,12 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:21:16 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/15 14:43:26 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/15 17:25:40 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 // la plupars des isEOF ne serve a rien
 #include "ft_printf.h"
+#include "libft.h"
 
 int lexer (char ** format, va_list ap)
 {
@@ -44,7 +45,7 @@ void lexer_string(char ** format, t_lexer_status * lexer_status)
                 lexer_status->lexer_state = FLAGS;
             else
             {
-                lexer_putchar(lexer_status, &current_char);
+                printf_putchar(lexer_status, &current_char);
                 consume(format, 0);
             }
         }
@@ -58,7 +59,7 @@ void lexer_placeholder(char ** format, t_lexer_status * lexer_status, va_list ap
             current_char = peek(*format, 1);             
             // if (current_char == '%')
             // {
-            //     lexer_putchar(current_char, lexer_status);
+            //     printf_putchar(current_char, lexer_status);
             //     lexer_status->lexer_state = STRING_LITTERAL;
             //     consume(format, 1); // ATTENTION
             // }
@@ -137,7 +138,7 @@ void lexer_precision(char ** format, t_lexer_status * lexer_status)
 {
     t_state_map state_map;
 
-    if (peek(*format, lexer_status->lexer_flags.i) == '.')
+    if (lexer_status->lexer_state == PRECISION && peek(*format, lexer_status->lexer_flags.i) == '.')
     {
         lexer_status->precision.precision_exist = TRUE;
         (lexer_status->lexer_flags.i)++;
@@ -145,7 +146,7 @@ void lexer_precision(char ** format, t_lexer_status * lexer_status)
         state_map.next_state = TYPE;
         lexer_atoi(format, lexer_status, &(lexer_status->precision.value), state_map);
     }
-    else 
+    else if (lexer_status->lexer_state == PRECISION) 
         lexer_status->lexer_state = TYPE;
 }
 
@@ -157,43 +158,70 @@ void lexer_type(char ** format, t_lexer_status * lexer_status, va_list ap)
     if (lexer_status->lexer_state == TYPE/* && !isEOF(*format, lexer_status->lexer_flags.i)*/)
     {
         if (current_char == '%')
-            process_type(format, lexer_status, &current_char, lexer_putchar);
+            process_type(format, lexer_status, &current_char, printf_putchar);
         else if (current_char == 'c')
             process_type(format, lexer_status, &((char){(va_arg(ap, int))}), lexer_putchar);
         else if (current_char == 's')
-            process_type(format, lexer_status, (va_arg(ap, char *)), lexer_putchar);
-        else if (current_char == 'p')
-            process_type(format, lexer_status, &((uintptr_t){(uintptr_t)va_arg(ap, void *)}), lexer_pointer);
-        lexer_type2(format ,lexer_status, ap);
+            process_type(format, lexer_status, (va_arg(ap, char *)), printf_putchar);
+        // else if (current_char == 'p')
+        //     process_type(format, lexer_status, &((uintptr_t){(uintptr_t)va_arg(ap, void *)}), lexer_pointer);
+        // lexer_type2(format ,lexer_status, ap);
         else
         {
-            lexer_putchar(lexer_status, &((char){'%'}));
+            printf_putchar(lexer_status, &((char){'%'}));
             consume(format, 0);
         }
     }
     lexer_status->lexer_state = STRING_LITTERAL; 
 }
 
-void lexer_type2(char ** format, t_lexer_status * lexer_status, va_list ap)
-{
-    char current_char;
-
-    current_char = peek(*format, lexer_status->lexer_flags.i);
-    if (current_char == 'd' || current_char == 'i')
-        process_type(format, lexer_status, &current_char, lexer_put_integer);
-    else if (current_char == 'u')
-        process_type(format, lexer_status, &((char){(va_arg(ap, int))}), lexer_put_unsignedinteger);
-    else if (current_char == 'x')
-        process_type(format, lexer_status, (va_arg(ap, char *)), lexer_putchar);
-    else if (current_char == 'X')
-        process_type(format, lexer_status, &((uintptr_t){(uintptr_t)va_arg(ap, void *)}), lexer_pointer);
-    // lexer_type2(format ,lexer_status, ap);
-}
+// void lexer_type2(char ** format, t_lexer_status * lexer_status, va_list ap)
+// {
+//     char current_char;
+//
+//     current_char = peek(*format, lexer_status->lexer_flags.i);
+//     if (current_char == 'd' || current_char == 'i')
+//         process_type(format, lexer_status, &current_char, lexer_put_integer);
+//     else if (current_char == 'u')
+//         process_type(format, lexer_status, &((char){(va_arg(ap, int))}), lexer_put_unsignedinteger);
+//     else if (current_char == 'x')
+//         process_type(format, lexer_status, (va_arg(ap, char *)), printf_putchar);
+//     else if (current_char == 'X')
+//         process_type(format, lexer_status, &((uintptr_t){(uintptr_t)va_arg(ap, void *)}), lexer_pointer);
+//     // lexer_type2(format ,lexer_status, ap);
+// }
 
 void process_type(char ** format, t_lexer_status * lexer_status, void * arg, void (*put_type)(t_lexer_status *, void *))
 {
     (*put_type)(lexer_status, arg); 
     consume(format, lexer_status->lexer_flags.i);
+}
+
+void lexer_putchar (t_lexer_status * lexer_status, void * arg)
+{
+    arg = (char *)arg;
+    if (lexer_status->lexer_flags.hash 
+        || lexer_status->lexer_flags.plus || lexer_status->lexer_flags.zero || lexer_status->lexer_flags.space) 
+        lexer_status->return_value = -1;
+    if (lexer_status->width)
+    {
+        if (lexer_status->lexer_flags.minus)
+            printf_putchar(lexer_status, arg);
+        printf_width(lexer_status, lexer_status->width - 1, ' ');
+        if (!lexer_status->lexer_flags.minus)
+            printf_putchar(lexer_status, arg);
+    }
+}
+
+void printf_width (t_lexer_status * lexer_status, int effective_width, char filler)
+{
+    char * str_width;
+
+    str_width = malloc(sizeof(char)*(effective_width));
+    ft_memset(str_width, (int)filler, (effective_width));
+    lexer_status->printed_count += effective_width;
+    write(1, str_width, effective_width);
+    free(str_width);
 }
 
  void lexer_putstr(t_lexer_status * lexer_status, va_list ap)
@@ -206,7 +234,7 @@ void process_type(char ** format, t_lexer_status * lexer_status, void * arg, voi
     if (str == NULL)
         str = "(null)";
     while (str[i])
-        lexer_putchar(lexer_status, &str[i++]);
+        printf_putchar(lexer_status, &str[i++]);
     lexer_status->lexer_state = STRING_LITTERAL;
 }  
 
@@ -222,12 +250,12 @@ void lexer_pointer(t_lexer_status * lexer_status, va_list ap)
     if (!p)
     {
         while (table[i])
-            lexer_putchar (lexer_status, &table[i++]);
+            printf_putchar (lexer_status, &table[i++]);
     }
     else
     {
-        lexer_putchar(lexer_status, &((char){'0'}) );
-        lexer_putchar(lexer_status, &((char){'x'}) );
+        printf_putchar(lexer_status, &((char){'0'}) );
+        printf_putchar(lexer_status, &((char){'x'}) );
         printf_convert_pointer(p, lexer_status);  
     }
     lexer_status->lexer_state = STRING_LITTERAL;

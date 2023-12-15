@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:25:53 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/15 12:31:24 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/15 16:21:24 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char consume(char ** format, int index)
     return (char_to_return);
 }
 
-void lexer_putchar(t_lexer_status * lexer_status, void * current_char)
+void printf_putchar(t_lexer_status * lexer_status, void * current_char)
 {
     current_char = (char *)current_char;
     write(1, current_char, 1);
