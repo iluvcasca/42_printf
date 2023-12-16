@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:21:16 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/15 17:25:40 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/16 18:51:53 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 // la plupars des isEOF ne serve a rien
@@ -218,6 +218,8 @@ void printf_width (t_lexer_status * lexer_status, int effective_width, char fill
     char * str_width;
 
     str_width = malloc(sizeof(char)*(effective_width));
+    if (!str_width)
+        return;
     ft_memset(str_width, (int)filler, (effective_width));
     lexer_status->printed_count += effective_width;
     write(1, str_width, effective_width);
