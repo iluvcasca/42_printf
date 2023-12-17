@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:25:53 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/15 16:21:24 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/16 22:54:45 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ char consume(char ** format, int index)
 
 void printf_putchar(t_lexer_status * lexer_status, void * current_char)
 {
-    current_char = (char *)current_char;
-    write(1, current_char, 1);
-    if (lexer_status->printed_count == INT_MAX)
+    int byte_read;
+    byte_read = write(1, current_char, 1);
+    if (lexer_status->printed_count == INT_MAX || byte_read != 1)
         lexer_status->return_value = -1;
     lexer_status->printed_count++;
 }

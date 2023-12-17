@@ -6,29 +6,58 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:44:23 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/16 18:34:57 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/16 23:51:13 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 #include <time.h>
+
 int main ()
 {
     clock_t start, end;
     double cpu_time_used;
     start = clock();
+    
+    // -- %c
+
     // 1
-    long a = ft_printf("%2147483646c\n", 'b');
-    printf("%li\n",a);
+    // long a = ft_printf("%2147483646c\n", 'b');
+    // printf("%li\n",a);
+    //fflush(stdout);
 
     // 2
     // long b = ft_printf("%2147483647c\n", 'b');
     // printf("%li\n",b);
+    //fflush(stdout);
 
     // 3
-    // long c = ft_printf("%-42c\n", 'b');
-    // printf("%li\n",c);
+    long c = ft_printf("%-42c\n", 'b');
+    printf("%li\n",c);
+    fflush(stdout);
+
+    // 4
+    long d = ft_printf("%c\n", 'b');
+    printf("%li\n",d);
+    fflush(stdout);
+
+    // -- %s
+
+    // 5
+    long e = ft_printf("%.2s\n", (char *)NULL);
+    printf ("%li\n", e);
+    fflush(stdout);
+    
+    // 6
+    long f = ft_printf("..%-43.2s..\n", (char *)NULL);
+    printf ("%li\n", f);
+    fflush(stdout);
+
+    // 7
+    long g = ft_printf("..%-43.3s..\n", "hello");
+    printf ("%li\n", g);
+    fflush(stdout);
 
     end = clock();
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
