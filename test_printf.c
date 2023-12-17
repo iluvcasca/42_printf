@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:44:23 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/16 23:58:53 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/17 17:13:15 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int main ()
     long e = printf("%.2s\n", (char *)NULL);
     printf ("%li\n", e);
     fflush(stdout);
-    
+
     // 6
     long f = printf("..%-43.2s..\n", (char *)NULL);
     printf ("%li\n", f);
@@ -57,6 +57,25 @@ int main ()
     // 7
     long g = printf("..%-43.3s..\n", "hello");
     printf ("%li\n", g);
+    fflush(stdout);
+
+    // -- %p
+
+    // 8
+    long h = printf("..%-13p..\n", NULL);
+    printf ("%li\n", h);
+    fflush(stdout);
+
+    // 9
+    char * ptr = malloc(sizeof(char));
+    long i = printf("..%-20p..\n", ptr);
+    printf ("%li\n", i);
+    fflush(stdout);
+    free(ptr);
+
+    // 10
+    long j = printf("..%42p..\n", NULL);
+    printf("%li\n", j);
     fflush(stdout);
 
     end = clock();

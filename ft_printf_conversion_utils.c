@@ -6,21 +6,30 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:16:36 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/15 16:20:42 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/17 16:31:27 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-void printf_convert_pointer (uintptr_t p, t_lexer_status * lexer_status)
+void printf_convert_pointer (uintptr_t p, t_lexer_status * lexer_status, char * ptr_adress, size_t ptr_len)
 {
     char * table;
 
     table = "0123456789abcdef";
     if (p)
-        printf_convert_pointer(p/16, lexer_status);
+        printf_convert_pointer(p/16, lexer_status, ptr_adress, --ptr_len);
     else
         return;
-    printf_putchar (lexer_status, &table[p % 16]);
+    ptr_adress[ptr_len] = table[p % 16];
+}
+
+void printf_pointer_size (uintptr_t p, size_t * i)
+{
+    if (p)
+        printf_pointer_size(p/16, i);
+    else
+        return;
+    (*i)++;
 }
 
 void	printf_utoa(unsigned int u, t_lexer_status * lexer_status)

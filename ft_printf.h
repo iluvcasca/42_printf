@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:43:04 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/16 23:37:01 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/17 17:06:52 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ int lexer (char ** format, va_list ap);
 void lexer_string_litteral(char ** format, t_lexer_status * lexer_status);
 void printf_putchar(t_lexer_status * lexer_status, void * current_char);
  void lexer_putstr(t_lexer_status * lexer_status, void * arg);
-void lexer_pointer(t_lexer_status * lexer_status, va_list ap);
-void printf_convert_pointer (uintptr_t p, t_lexer_status * lexer_status);
+void lexer_pointer(t_lexer_status * lexer_status, void * arg);
 void lexer_placeholder(char ** format, t_lexer_status * lexer_status, va_list ap);
 void lexer_put_integer (t_lexer_status * lexer_status, va_list ap);
 void lexer_put_unsignedinteger (t_lexer_status * lexer_status, va_list ap);
@@ -98,4 +97,8 @@ void printf_width (t_lexer_status * lexer_status, int effective_width, char fill
 void lexer_putchar (t_lexer_status * lexer_status, void * arg);
 void printf_write (t_lexer_status * lexer_status, char * address, int count);
 void lexer_putstr2(t_lexer_status * lexer_status, void * arg, size_t len, void * arg_cpy);
+void printf_pointer_size (uintptr_t p, size_t * i);
+void printf_convert_pointer (uintptr_t p, t_lexer_status * lexer_status, char * ptr_adress, size_t ptr_len);
+void    lexer_pointer2(t_lexer_status * lexer_status, char * ptr_str, size_t ptr_len, void * arg);
+void printf_pointer_write(t_lexer_status * lexer_status, void * arg, char * ptr_str, size_t ptr_len);
 #endif
