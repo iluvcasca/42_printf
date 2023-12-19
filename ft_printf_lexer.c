@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:21:16 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/18 17:17:57 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/19 17:32:07 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,31 +302,43 @@ void	lexer_flags(char **format, t_lexer_status *lexer_status)
             return;
         printf_utoa(-1 * (*((int *)arg)), lexer_status, int_str, int_len);
     }
-    // lexer_integer2(lexer_status, int_str, int_len, arg);
+    lexer_integer2(lexer_status, int_str, int_len, arg);
 }
-// 	void lexer_integer2(t_lexer_status *lexer_status, char *int_str,
-// 		size_t int_len, void *arg)
-// 	{
-// 		size_t prefix;
-//
-// 		prefix = 0;
-// 		if (arg)
-// 			prefix = 2;
-// 		if (lexer_status->width)
-// 		{
-// 			if (lexer_status->lexer_flags.minus)
-// 				printf_pointer_write(lexer_status, arg, ptr_str, ptr_len);
-// 			printf_width(lexer_status, lexer_status->width - ptr_len - prefix,
-// 				' ');
-// 			if (!lexer_status->lexer_flags.minus)
-// 				printf_pointer_write(lexer_status, arg, ptr_str, ptr_len);
-// 		}
-// 		else
-// 			printf_pointer_write(lexer_status, arg, ptr_str, ptr_len);
-// 		if (arg)
-// 			free(ptr_str);
-// 	}
-// void integer_get_preffix_size
+
+	void lexer_integer2(t_lexer_status *lexer_status, char *int_str,
+		size_t int_len, void *arg)
+	{
+		size_t prefix;
+
+		prefix = 0;
+		if (arg)
+			prefix = 2;
+		if (lexer_status->width)
+		{
+			if (lexer_status->lexer_flags.minus)
+				printf_pointer_write(lexer_status, arg, ptr_str, ptr_len);
+			printf_width(lexer_status, lexer_status->width - ptr_len - prefix,
+				' ');
+			if (!lexer_status->lexer_flags.minus)
+				printf_pointer_write(lexer_status, arg, ptr_str, ptr_len);
+		}
+		else
+			printf_pointer_write(lexer_status, arg, ptr_str, ptr_len);
+		if (arg)
+			free(ptr_str);
+	}
+
+size_t integer_get_preffix_size(t_lexer_status * lexer_status, int int_value)
+{
+    size_t prefix;
+
+    prefix = 0;
+    
+    if (int_value < 0)
+        prefix++;
+    else if (lexer_status->
+
+}
 
 	void lexer_pointer(t_lexer_status *lexer_status, void *arg)
 	{

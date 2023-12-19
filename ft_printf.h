@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:43:04 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/18 16:47:04 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/19 17:26:01 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,5 @@ void	printf_utoa(unsigned int u, t_lexer_status *lexer_status,
 void	printf_utoa_size(unsigned int u, size_t *u_int_len);
 void lexer_integer2(t_lexer_status *lexer_status, char *int_str,
 		size_t int_len, void *arg);
+size_t integer_get_preffix_size(t_lexer_status * lexer_status, int int_value);
 #endif
