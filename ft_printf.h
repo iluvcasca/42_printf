@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:43:04 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/19 17:26:01 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/20 19:35:29 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_lexer_status
         t_lexer_state lexer_state;
         t_lexer_flags lexer_flags;
         int width;
+        int width_char;
         t_precision precision;
         int return_value; 
         int printed_count;
@@ -106,5 +107,9 @@ void	printf_utoa(unsigned int u, t_lexer_status *lexer_status,
 void	printf_utoa_size(unsigned int u, size_t *u_int_len);
 void lexer_integer2(t_lexer_status *lexer_status, char *int_str,
 		size_t int_len, void *arg);
-size_t integer_get_preffix_size(t_lexer_status * lexer_status, int int_value);
+	void printf_integer_write(t_lexer_status *lexer_status, void *arg,
+		char *int_str, size_t int_len);
+size_t integer_get_preffix_size(t_lexer_status * lexer_status, int int_value, size_t int_len);
+void lexer_integer3(char * int_str, void * arg);
+void printf_integer_prefix(t_lexer_status * lexer_status,int int_value);
 #endif

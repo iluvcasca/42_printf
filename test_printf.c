@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:44:23 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/18 15:20:00 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/20 18:29:28 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,16 @@ int	main(void)
 	char	*ptr;
 	long	i;
 	long	j;
+    long    k;
+    long    l;
+    long    m;
+    long    n;
+    long    o;
+    long    p;
+    long    q;
+    long    r;
+    long    s;
+
 
 	clock_t start, end;
 	start = clock();
@@ -79,6 +89,45 @@ int	main(void)
 	j = printf("..%2p..\n", NULL);
 	printf("%li\n", j);
 	fflush(stdout);
+    // -- %i/d
+    // 11
+    k = printf("..%i..\n", 0);
+	printf("%li\n", k);
+	fflush(stdout);
+    // 12
+    l = printf("..%042i..\n", 0);
+	printf("%li\n", l);
+	fflush(stdout);
+    // 13
+    m = printf("..%-042i..\n", 0);
+	printf("%li\n", m);
+	fflush(stdout);
+    // 14
+    n = printf("..% 042i..\n", 6);
+	printf("%li\n", n);
+	fflush(stdout);
+    // 15
+    o = printf("..%+042i..\n", 7);//
+	printf("%li\n", o);
+	fflush(stdout);
+    // 16
+    p = printf("..%-42.5i..\n", -7);//
+	printf("%li\n", p);
+	fflush(stdout);
+    // 17
+    q = printf("..%+042.1i..\n", 7);//
+	printf("%li\n", q);
+	fflush(stdout);
+    // 18
+    r = printf("..%+042.0i..\n", -7);//
+	printf("%li\n", r);
+	fflush(stdout);
+    // 19
+    s = printf("..%+042.i..\n", 7);//
+	printf("%li\n", s);
+	fflush(stdout);
+
+
 	end = clock();
 	cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
 	printf("Took : %f seconds\n", cpu_time_used);
