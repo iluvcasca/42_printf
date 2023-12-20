@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:25:53 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/18 15:21:11 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/20 22:23:50 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,3 +41,32 @@ void	printf_putchar(t_lexer_status *lexer_status, void *current_char)
 		lexer_status->return_value = -1;
 	lexer_status->printed_count++;
 }
+
+	void lexer_atoi(char **format, t_lexer_status *lexer_status, int *value,
+		t_state_map state_map)
+	{
+		char current_char;
+
+		while (lexer_status->lexer_state == state_map.current_state /*
+		&& !isEOF(*format, lexer_status->lexer_flags.i)*/)
+		{
+			current_char = peek(*format, lexer_status->lexer_flags.i);
+			if (ft_isdigit(current_char) && (*value) >= INT_MAX / 10
+				&& current_char - '0' >= 8)
+			{
+				(*value) = 0;
+				lexer_status->lexer_state = state_map.next_state;
+				lexer_status->return_value = -1;
+				(lexer_status->lexer_flags.i)++;
+			}
+			else if (ft_isdigit(current_char))
+			{
+				(*value) = (*value) * 10 + current_char - '0';
+				(lexer_status->lexer_flags.i)++;
+			}
+			else
+				lexer_status->lexer_state = state_map.next_state;
+		}
+	}
+
+

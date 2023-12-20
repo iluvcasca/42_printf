@@ -6,49 +6,37 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:33:34 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/18 17:19:21 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/20 22:25:51 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-// void	lexer_put_integer(t_lexer_status *lexer_status, va_list ap)
-// {
-// 	int	i;
-//
-// 	i = va_arg(ap, int);
-// 	if (!i)
-// 		printf_putchar(lexer_status, &((char){'0'}));
-// 	else if (i < 0)
-// 	{
-// 		printf_putchar(lexer_status, &((char){'-'}));
-// 		printf_utoa(-1 * i, lexer_status);
-// 	}
-// 	else
-// 		printf_utoa(i, lexer_status);
-// 	lexer_status->lexer_state = STRING_LITTERAL;
-// }
-//
-// void	lexer_put_unsignedinteger(t_lexer_status *lexer_status, va_list ap)
-// {
-// 	unsigned int	u;
-//
-// 	u = va_arg(ap, int);
-// 	if (!u)
-// 		printf_putchar(lexer_status, &((char){'0'}));
-// 	else
-// 		printf_utoa(u, lexer_status);
-// 	lexer_status->lexer_state = STRING_LITTERAL;
-// }
+	 void lexer_type2(char ** format, t_lexer_status * lexer_status,
+	 va_list ap)
+	 {
+        char current_char;
 
-void	lexer_put_hexa(t_lexer_status *lexer_status, t_case _case, va_list ap)
-{
-	unsigned int	x;
-
-	x = va_arg(ap, int);
-	if (!x)
-		printf_putchar(lexer_status, &((char){'0'}));
-	else
-		printf_convert_hexa(x, lexer_status, _case);
-	lexer_status->lexer_state = STRING_LITTERAL;
-}
+		current_char = peek(*format, lexer_status->lexer_flags.i);
+		if (lexer_status->lexer_state == TYPE /* && !isEOF(*format,
+			lexer_status->lexer_flags.i)*/)
+		{
+			if (current_char == 'd' || current_char == 'i')
+				process_type(format, lexer_status, &((int){(va_arg(ap, int))}),
+					lexer_integer);
+			else if (current_char == 'c')
+				process_type(format, lexer_status, &((int){(va_arg(ap, int))}),
+					lexer_putchar);
+			else if (current_char == 's')
+				process_type(format, lexer_status, va_arg(ap, char *),
+					lexer_putstr);
+			else if (current_char == 'p')
+				process_type(format, lexer_status, va_arg(ap, void *),
+					lexer_pointer);
+			else
+			{
+				printf_putchar(lexer_status, &((char){'%'}));
+				consume(format, 0);
+			}
+		}
+	 }
