@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:43:04 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/21 15:48:40 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/21 17:44:40 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_lexer_status
         t_precision precision;
         int return_value; 
         int printed_count;
+        t_case _case_;
 } t_lexer_status;
 
 
@@ -83,7 +84,6 @@ void lexer_pointer(t_lexer_status * lexer_status, void * arg);
 void lexer_placeholder(char ** format, t_lexer_status * lexer_status, va_list ap);
 void lexer_put_integer (t_lexer_status * lexer_status, va_list ap);
 void lexer_put_unsignedinteger (t_lexer_status * lexer_status, va_list ap);
-void printf_convert_hexa (unsigned int x, t_lexer_status * lexer_status, t_case _case);
 void lexer_put_hexa (t_lexer_status * lexer_status, t_case _case , va_list ap);
 void lexer_flags(char ** format, t_lexer_status * lexer_status);
 void lexer_is_valid_flags(char ** format, t_lexer_status * lexer_status);
@@ -103,7 +103,7 @@ void    lexer_pointer2(t_lexer_status * lexer_status, char * ptr_str, size_t ptr
 void printf_pointer_write(t_lexer_status * lexer_status, void * arg, char * ptr_str, size_t ptr_len);
 	void lexer_integer(t_lexer_status *lexer_status, void *arg);
 void	printf_utoa(unsigned int u, t_lexer_status *lexer_status,
-		char *u_int_adress, size_t u_int_len);
+		char *u_int_address, size_t u_int_len);
 void	printf_utoa_size(unsigned int u, size_t *u_int_len);
 void lexer_integer2(t_lexer_status *lexer_status, char *int_str,
 		size_t int_len, void *arg);
@@ -120,4 +120,6 @@ void lexer_u_integer3(char * int_str, void * arg);
 size_t u_integer_get_preffix_size(t_lexer_status * lexer_status, size_t u_int_len);
 	void printf_u_integer_write(t_lexer_status *lexer_status,
 		char *u_int_str, size_t u_int_len);
+
+void	printf_convert_hexa(unsigned int x, t_lexer_status *lexer_status, char * hex_address, size_t hex_len);
 #endif

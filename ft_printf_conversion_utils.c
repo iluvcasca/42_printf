@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:16:36 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/18 16:19:55 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/21 17:52:52 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -44,30 +44,14 @@ void	printf_utoa_size(unsigned int u, size_t *u_int_len)
 }
 
 void	printf_utoa(unsigned int u, t_lexer_status *lexer_status,
-		char *u_int_adress, size_t u_int_len)
+		char *u_int_address, size_t u_int_len)
 {
 	char	*table;
 
 	table = "0123456789";
 	if (u)
-		printf_utoa(u / 10, lexer_status, u_int_adress, --u_int_len);
+		printf_utoa(u / 10, lexer_status, u_int_address, --u_int_len);
 	else
 		return ;
-    u_int_adress[u_int_len] = table[u % 10];
-}
-
-void	printf_convert_hexa(unsigned int x, t_lexer_status *lexer_status,
-		t_case _case)
-{
-	char	*table;
-
-	if (_case == LOWERCASE)
-		table = "0123456789abcdef";
-	else
-		table = "0123456789ABCDEF";
-	if (x)
-		printf_convert_hexa(x / 16, lexer_status, _case);
-	else
-		return ;
-	printf_putchar(lexer_status, &table[x % 16]);
+    u_int_address[u_int_len] = table[u % 10];
 }
