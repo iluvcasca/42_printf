@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 22:33:56 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/20 22:43:05 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/21 14:56:45 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void printf_integer_prefix(t_lexer_status * lexer_status,int int_value)
 {
-    if (int_value > 0 && lexer_status->width_char == '0')
+    if (int_value >= 0 && lexer_status->width_char == '0')
     {
         if (lexer_status->lexer_flags.plus)
             printf_write(lexer_status, "+", 1);

@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:43:04 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/20 19:35:29 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/21 15:48:40 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,12 @@ void lexer_integer2(t_lexer_status *lexer_status, char *int_str,
 size_t integer_get_preffix_size(t_lexer_status * lexer_status, int int_value, size_t int_len);
 void lexer_integer3(char * int_str, void * arg);
 void printf_integer_prefix(t_lexer_status * lexer_status,int int_value);
+	void lexer_u_integer(t_lexer_status *lexer_status, void *arg);
+void lexer_u_integer2(t_lexer_status *lexer_status, char *int_str,
+		size_t int_len, void *arg);
+
+void lexer_u_integer3(char * int_str, void * arg);
+size_t u_integer_get_preffix_size(t_lexer_status * lexer_status, size_t u_int_len);
+	void printf_u_integer_write(t_lexer_status *lexer_status,
+		char *u_int_str, size_t u_int_len);
 #endif

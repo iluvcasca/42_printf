@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:44:23 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/20 18:29:28 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/21 16:04:22 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ int	main(void)
 	long	j;
     long    k;
     long    l;
+    long    la;
+    long    lb;
+    long    lc;
     long    m;
     long    n;
     long    o;
@@ -95,8 +98,20 @@ int	main(void)
 	printf("%li\n", k);
 	fflush(stdout);
     // 12
-    l = printf("..%042i..\n", 0);
+    l = printf("..%+042i..\n", 0);
 	printf("%li\n", l);
+	fflush(stdout);
+    // 12.1
+    la = printf("..% 042i..\n", 0);
+	printf("%li\n", la);
+	fflush(stdout);
+    // 12.2
+    lb = printf("..%-+42i..\n", 0);
+	printf("%li\n", lb);
+	fflush(stdout);
+    // 12.3
+    lc = printf("..%- 42i..\n", 0);
+	printf("%li\n", lc);
 	fflush(stdout);
     // 13
     m = printf("..%-042i..\n", 0);
@@ -127,6 +142,55 @@ int	main(void)
 	printf("%li\n", s);
 	fflush(stdout);
 
+    // -- %u
+    // 20
+    k = printf("..%u..\n", 0);
+	printf("%li\n", k);
+	fflush(stdout);
+    // 21
+    l = printf("..%042u..\n", 0);
+	printf("%li\n", l);
+	fflush(stdout);
+    // 23
+    la = printf("..%042u..\n", 0);
+	printf("%li\n", la);
+	fflush(stdout);
+    // 24 
+    lb = printf("..%-42u..\n", 0);
+	printf("%li\n", lb);
+	fflush(stdout);
+    // 25
+    lc = printf("..%-42u..\n", 0);
+	printf("%li\n", lc);
+	fflush(stdout);
+    // 26
+    m = printf("..%-042u..\n", 0);
+	printf("%li\n", m);
+	fflush(stdout);
+    // 27
+    n = printf("..%042u..\n", 6);
+	printf("%li\n", n);
+	fflush(stdout);
+    // 28
+    o = printf("..%042u..\n", 7);
+	printf("%li\n", o);
+	fflush(stdout);
+    // 29
+    p = printf("..%-42.5u..\n", UINT_MAX);
+	printf("%li\n", p);
+	fflush(stdout);
+    // 30
+    q = printf("..%042.3u..\n", 7);
+	printf("%li\n", q);
+	fflush(stdout);
+    // 31
+    r = printf("..%042.0u..\n", UINT_MAX);
+	printf("%li\n", r);
+	fflush(stdout);
+    // 32
+    s = printf("..%042.4u..\n", 7);
+	printf("%li\n", s);
+	fflush(stdout);
 
 	end = clock();
 	cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;

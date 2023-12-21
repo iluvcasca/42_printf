@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:33:34 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/20 22:25:51 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/21 14:31:14 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 			if (current_char == 'd' || current_char == 'i')
 				process_type(format, lexer_status, &((int){(va_arg(ap, int))}),
 					lexer_integer);
-			else if (current_char == 'c')
-				process_type(format, lexer_status, &((int){(va_arg(ap, int))}),
-					lexer_putchar);
+			else if (current_char == 'u')
+				process_type(format, lexer_status, &((unsigned int){(va_arg(ap, unsigned int))}),
+					lexer_u_integer);
 			else if (current_char == 's')
 				process_type(format, lexer_status, va_arg(ap, char *),
 					lexer_putstr);
