@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:43:04 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/23 17:09:28 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/24 00:27:10 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdint.h>
 #include <unistd.h>
 #include <limits.h>
-#include "libft.h"
+// #include "libft.h"
 #include <stdlib.h>
 
 typedef enum e_lexer_state {
@@ -30,8 +30,8 @@ typedef enum e_lexer_state {
     }t_lexer_state ;
 
 typedef enum e_case {
-    UPPERCASE,
     LOWERCASE,
+    UPPERCASE,
 }t_case;
 
 typedef struct s_lexer_flags
@@ -126,18 +126,24 @@ size_t hex_get_preffix_size(t_lexer_status * lexer_status, size_t u_int_len);
 void printf_hex_write(t_lexer_status *lexer_status,
 		char *u_int_str, size_t u_int_len);
 	void lexer_lhex2(t_lexer_status *lexer_status, char *u_int_str,
-		size_t u_int_len, void *arg);
+		size_t u_int_len);
 
 void lexer_lhex3(char * u_int_str, void * arg);
 void	printf_convert_hexa(unsigned int x, t_lexer_status *lexer_status, char * hex_address, size_t hex_len);
 void	printf_hex_size(unsigned int x, size_t *hex_len);
 void	printf_convert_hexa(unsigned int x, t_lexer_status *lexer_status, char * hex_address, size_t hex_len);
 
-void printf_hex_prefix(t_lexer_status * lexer_status);
+
 	void lexer_Uhex(t_lexer_status *lexer_status, void *arg);
 	void lexer_Uhex2(t_lexer_status *lexer_status, char *U_hex_str,
-		size_t U_hex_len, void *arg);
+		size_t U_hex_len);
 
 void lexer_Uhex3(char * U_hex_str, void * arg);
+void	*ft_memset(void *s, int c, size_t n);
+int	ft_isdigit(int c);
+size_t	ft_strlen(const char *s);
+void	printf_hex_size_wrapper(t_lexer_status * lexer_status, unsigned int x, size_t *hex_len);
 
+void printf_hex_prefix(t_lexer_status * lexer_status, int * offset);
+void	printf_convert_hexa_wrapper(unsigned int x, t_lexer_status *lexer_status, char * hex_address, size_t hex_len);
 #endif
