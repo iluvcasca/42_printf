@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:44:23 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/21 16:03:37 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/23 17:26:34 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,106 @@ int	main(void)
 	fflush(stdout);
     // 32
     s = ft_printf("..%42.4u..\n", 7);
+	printf("%li\n", s);
+	fflush(stdout);
+
+    // -- %x
+    // 33
+    k = ft_printf("..%x..\n", 0);
+	printf("%li\n", k);
+	fflush(stdout);
+    // 34
+    l = ft_printf("..%042x..\n", 0);
+	printf("%li\n", l);
+	fflush(stdout);
+    // 35
+    la = ft_printf("..%042x..\n", 0);
+	printf("%li\n", la);
+	fflush(stdout);
+    // 36
+    lb = ft_printf("..%-42x..\n", 0);
+	printf("%li\n", lb);
+	fflush(stdout);
+    // 37
+    lc = ft_printf("..%-42x..\n", 0);
+	printf("%li\n", lc);
+	fflush(stdout);
+    // 38
+    m = ft_printf("..%-042x..\n", 0);
+	printf("%li\n", m);
+	fflush(stdout);
+    // 39
+    n = ft_printf("..%042x..\n", 6);
+	printf("%li\n", n);
+	fflush(stdout);
+    // 40
+    o = ft_printf("..%0#42x..\n", 7);
+	printf("%li\n", o);
+	fflush(stdout);
+    // 41
+    p = ft_printf("..%-#42.5x..\n", UINT_MAX);
+	printf("%li\n", p);
+	fflush(stdout);
+    // 42
+    q = ft_printf("..%0#42.3x..\n", 7);
+	printf("%li\n", q);
+	fflush(stdout);
+    // 43
+    r = ft_printf("..%0#42.0x..\n", UINT_MAX);
+	printf("%li\n", r);
+	fflush(stdout);
+    // 44
+    s = ft_printf("..%42.4x..\n", 7);
+	printf("%li\n", s);
+	fflush(stdout);
+
+    // -- %X
+    // 45
+    k = ft_printf("..%X..\n", 0);
+	printf("%li\n", k);
+	fflush(stdout);
+    // 46
+    l = ft_printf("..%042X..\n", 0);
+	printf("%li\n", l);
+	fflush(stdout);
+    // 47
+    la = ft_printf("..%042X..\n", 0);
+	printf("%li\n", la);
+	fflush(stdout);
+    // 48
+    lb = ft_printf("..%-42X..\n", 0);
+	printf("%li\n", lb);
+	fflush(stdout);
+    // 49
+    lc = ft_printf("..%-42X..\n", 0);
+	printf("%li\n", lc);
+	fflush(stdout);
+    // 50
+    m = ft_printf("..%-042X..\n", 0);
+	printf("%li\n", m);
+	fflush(stdout);
+    // 51
+    n = ft_printf("..%042X..\n", 6);
+	printf("%li\n", n);
+	fflush(stdout);
+    // 52
+    o = ft_printf("..%0#42X..\n", 7);
+	printf("%li\n", o);
+	fflush(stdout);
+    // 53
+    p = ft_printf("..%-#42.5X..\n", UINT_MAX);
+	printf("%li\n", p);
+	fflush(stdout);
+    // 54
+    q = ft_printf("..%0#42.3X..\n", 7);
+	printf("%li\n", q);
+	fflush(stdout);
+    // 55
+    r = ft_printf("..%0#42.0X..\n", UINT_MAX);
+	printf("%li\n", r);
+	fflush(stdout);
+    // 56
+    s = ft_printf("..%42.4X..\n", 7);
 	printf("%li\n", s);
 	fflush(stdout);
 

@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:33:34 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/21 17:30:54 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/23 17:10:12 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@
 				process_type(format, lexer_status, &((unsigned int){(va_arg(ap, unsigned int))}),
 					lexer_u_integer);
 			else if (current_char == 'x')
-				process_type(format, lexer_status, va_arg(ap, char *),
-					lexer_putstr);
+				process_type(format, lexer_status, &((unsigned int){(va_arg(ap, unsigned int))}),
+					lexer_lhex);
 			else if (current_char == 'X')
-				process_type(format, lexer_status, va_arg(ap, void *),
-					lexer_pointer);
+				process_type(format, lexer_status, &((unsigned int){(va_arg(ap, unsigned int))}),
+					lexer_Uhex);
 			else
 			{
 				printf_putchar(lexer_status, &((char){'%'}));

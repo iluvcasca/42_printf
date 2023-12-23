@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:43:04 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/21 17:44:40 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/23 17:09:28 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,23 @@ size_t u_integer_get_preffix_size(t_lexer_status * lexer_status, size_t u_int_le
 	void printf_u_integer_write(t_lexer_status *lexer_status,
 		char *u_int_str, size_t u_int_len);
 
+	void lexer_lhex(t_lexer_status *lexer_status, void *arg);
+size_t hex_get_preffix_size(t_lexer_status * lexer_status, size_t u_int_len);
+void printf_hex_write(t_lexer_status *lexer_status,
+		char *u_int_str, size_t u_int_len);
+	void lexer_lhex2(t_lexer_status *lexer_status, char *u_int_str,
+		size_t u_int_len, void *arg);
+
+void lexer_lhex3(char * u_int_str, void * arg);
 void	printf_convert_hexa(unsigned int x, t_lexer_status *lexer_status, char * hex_address, size_t hex_len);
+void	printf_hex_size(unsigned int x, size_t *hex_len);
+void	printf_convert_hexa(unsigned int x, t_lexer_status *lexer_status, char * hex_address, size_t hex_len);
+
+void printf_hex_prefix(t_lexer_status * lexer_status);
+	void lexer_Uhex(t_lexer_status *lexer_status, void *arg);
+	void lexer_Uhex2(t_lexer_status *lexer_status, char *U_hex_str,
+		size_t U_hex_len, void *arg);
+
+void lexer_Uhex3(char * U_hex_str, void * arg);
+
 #endif
