@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 22:32:01 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/23 17:06:03 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/24 12:32:35 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 	{
 		size_t prefix;
 
-		prefix = hex_get_preffix_size(lexer_status, l_hex_len);
+		prefix = hex_get_preffix_size(lexer_status, &l_hex_len, *((unsigned int *)arg));
 		if (lexer_status->width)
 		{
 			if (lexer_status->lexer_flags.minus)
@@ -51,14 +51,17 @@
         }
 			if (!lexer_status->lexer_flags.minus)
         {
-                printf_hex_prefix(lexer_status);
+                printf_hex_prefix(lexer_status, *((unsigned int *)arg));
 	            printf_width(lexer_status, lexer_status->width - l_hex_len - prefix,
 				lexer_status->width_char);
 				printf_hex_write(lexer_status, l_hex_str, l_hex_len);
         }
 		}
 		else
+        {
+            printf_hex_prefix(lexer_status, *((unsigned int *)arg));
 			printf_hex_write(lexer_status, l_hex_str, l_hex_len);
+        }
         lexer_lhex3(l_hex_str, arg);
 	}
 

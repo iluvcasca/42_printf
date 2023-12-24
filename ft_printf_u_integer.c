@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 22:32:01 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/21 16:02:42 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/24 12:09:47 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 	{
 		size_t prefix;
 
-		prefix = u_integer_get_preffix_size(lexer_status, u_int_len);
+		prefix = u_integer_get_preffix_size(lexer_status, &u_int_len,*((unsigned int *)arg));
 		if (lexer_status->width)
 		{
 			if (lexer_status->lexer_flags.minus)

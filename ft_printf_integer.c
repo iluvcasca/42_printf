@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 22:32:01 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/20 22:35:03 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/24 12:25:11 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 	{
 		size_t prefix;
 
-		prefix = integer_get_preffix_size(lexer_status,(*((int *)arg)), int_len);
+		prefix = integer_get_preffix_size(lexer_status,(*((int *)arg)), &int_len);
 		if (lexer_status->width)
 		{
 			if (lexer_status->lexer_flags.minus)
@@ -60,7 +60,10 @@
         }
 		}
 		else
+        {
+            printf_integer_prefix(lexer_status, *((int *)arg));
 			printf_integer_write(lexer_status, arg, int_str, int_len);
+        }
         lexer_integer3(int_str, arg);
 	}
 
