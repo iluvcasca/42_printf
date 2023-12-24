@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:43:04 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/23 17:09:28 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/24 11:16:18 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,4 +140,8 @@ void printf_hex_prefix(t_lexer_status * lexer_status);
 
 void lexer_Uhex3(char * U_hex_str, void * arg);
 
+void	*ft_memset(void *s, int c, size_t n);
+int	ft_isdigit(int c);
+
+size_t	ft_strlen(const char *s);
 #endif
