@@ -57,3 +57,5 @@ test_ft_printf.c
 test_ft_printf.txt
 test_printf.txt
 test_printf.c
+printfTester
+*.sh
