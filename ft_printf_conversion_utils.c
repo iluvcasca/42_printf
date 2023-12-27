@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:16:36 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/21 17:52:52 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/27 16:01:56 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -35,12 +35,11 @@ void	printf_pointer_size(uintptr_t p, size_t *ptr_len)
 
 void	printf_utoa_size(unsigned int u, size_t *u_int_len)
 {
-    if (u)
-        printf_utoa_size(u / 10, u_int_len);
-    else
+	if (u)
+		printf_utoa_size(u / 10, u_int_len);
+	else
 		return ;
 	(*u_int_len)++;
-
 }
 
 void	printf_utoa(unsigned int u, t_lexer_status *lexer_status,
@@ -53,5 +52,5 @@ void	printf_utoa(unsigned int u, t_lexer_status *lexer_status,
 		printf_utoa(u / 10, lexer_status, u_int_address, --u_int_len);
 	else
 		return ;
-    u_int_address[u_int_len] = table[u % 10];
+	u_int_address[u_int_len] = table[u % 10];
 }

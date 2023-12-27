@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:47:52 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/21 17:50:00 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/27 16:01:49 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 void	printf_hex_size(unsigned int x, size_t *hex_len)
 {
-    if (x)
-        printf_hex_size(x / 16, hex_len);
-    else
+	if (x)
+		printf_hex_size(x / 16, hex_len);
+	else
 		return ;
 	(*hex_len)++;
 }
 
-void	printf_convert_hexa(unsigned int x, t_lexer_status *lexer_status, char * hex_address, size_t hex_len)
+void	printf_convert_hexa(unsigned int x, t_lexer_status *lexer_status,
+		char *hex_address, size_t hex_len)
 {
 	char	*table;
 

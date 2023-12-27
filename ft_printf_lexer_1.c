@@ -6,37 +6,36 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:33:34 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/23 17:10:12 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/27 18:25:38 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-	 void lexer_type2(char ** format, t_lexer_status * lexer_status,
-	 va_list ap)
-	 {
-        char current_char;
+void	lexer_type2(char **format, t_lexer_status *lexer_status, va_list ap)
+{
+	char	current_char;
 
-		current_char = peek(*format, lexer_status->lexer_flags.i);
-		if (lexer_status->lexer_state == TYPE /* && !isEOF(*format,
+	current_char = peek(*format, lexer_status->lexer_flags.i);
+	if (lexer_status->lexer_state == TYPE /* && !iseof(*format,
 			lexer_status->lexer_flags.i)*/)
+	{
+		if (current_char == 'd' || current_char == 'i')
+			process_type(format, lexer_status, &((int){(va_arg(ap, int))}),
+				lexer_integer);
+		else if (current_char == 'u')
+			process_type(format, lexer_status, &((unsigned int){(va_arg(ap,
+							unsigned int))}), lexer_u_integer);
+		else if (current_char == 'x')
+			process_type(format, lexer_status, &((unsigned int){(va_arg(ap,
+							unsigned int))}), lexer_lhex);
+		else if (current_char == 'X')
+			process_type(format, lexer_status, &((unsigned int){(va_arg(ap,
+							unsigned int))}), lexer_uhex);
+		else
 		{
-			if (current_char == 'd' || current_char == 'i')
-				process_type(format, lexer_status, &((int){(va_arg(ap, int))}),
-					lexer_integer);
-			else if (current_char == 'u')
-				process_type(format, lexer_status, &((unsigned int){(va_arg(ap, unsigned int))}),
-					lexer_u_integer);
-			else if (current_char == 'x')
-				process_type(format, lexer_status, &((unsigned int){(va_arg(ap, unsigned int))}),
-					lexer_lhex);
-			else if (current_char == 'X')
-				process_type(format, lexer_status, &((unsigned int){(va_arg(ap, unsigned int))}),
-					lexer_Uhex);
-			else
-			{
-				printf_putchar(lexer_status, &((char){'%'}));
-				consume(format, 0);
-			}
+			printf_putchar(lexer_status, &((char){'%'}));
+			consume(format, 0);
 		}
-	 }
+	}
+}

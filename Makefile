@@ -31,5 +31,5 @@ fclean: clean
 
 re: fclean all
 
-bonus: all
+bonus: fclean all
 

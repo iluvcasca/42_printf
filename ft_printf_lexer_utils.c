@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:25:53 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/20 22:23:50 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/27 18:25:38 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	peek(char *format, int index)
 	return (*(format + index));
 }
 
-unsigned int	isEOF(char *format, int index)
+unsigned int	iseof(char *format, int index)
 {
 	if (*(format + index) == 0)
 		return (1);
@@ -26,8 +26,9 @@ unsigned int	isEOF(char *format, int index)
 
 char	consume(char **format, int index)
 {
-	char char_to_return ;
-	char_to_return = (*(*format + index));
+	char char_to_return;
+
+	char_to_return = *(*format + index);
 	*format += (index + 1);
 	return (char_to_return);
 }
@@ -42,31 +43,29 @@ void	printf_putchar(t_lexer_status *lexer_status, void *current_char)
 	lexer_status->printed_count++;
 }
 
-	void lexer_atoi(char **format, t_lexer_status *lexer_status, int *value,
+void	lexer_atoi(char **format, t_lexer_status *lexer_status, int *value,
 		t_state_map state_map)
+{
+	char	current_char;
+
+	while (lexer_status->lexer_state == state_map.current_state /*
+		&& !iseof(*format, lexer_status->lexer_flags.i)*/)
 	{
-		char current_char;
-
-		while (lexer_status->lexer_state == state_map.current_state /*
-		&& !isEOF(*format, lexer_status->lexer_flags.i)*/)
+		current_char = peek(*format, lexer_status->lexer_flags.i);
+		if (ft_isdigit(current_char) && (*value) >= INT_MAX / 10 && current_char
+			- '0' >= 8)
 		{
-			current_char = peek(*format, lexer_status->lexer_flags.i);
-			if (ft_isdigit(current_char) && (*value) >= INT_MAX / 10
-				&& current_char - '0' >= 8)
-			{
-				(*value) = 0;
-				lexer_status->lexer_state = state_map.next_state;
-				lexer_status->return_value = -1;
-				(lexer_status->lexer_flags.i)++;
-			}
-			else if (ft_isdigit(current_char))
-			{
-				(*value) = (*value) * 10 + current_char - '0';
-				(lexer_status->lexer_flags.i)++;
-			}
-			else
-				lexer_status->lexer_state = state_map.next_state;
+			(*value) = 0;
+			lexer_status->lexer_state = state_map.next_state;
+			lexer_status->return_value = -1;
+			(lexer_status->lexer_flags.i)++;
 		}
+		else if (ft_isdigit(current_char))
+		{
+			(*value) = (*value) * 10 + current_char - '0';
+			(lexer_status->lexer_flags.i)++;
+		}
+		else
+			lexer_status->lexer_state = state_map.next_state;
 	}
-
-
+}
