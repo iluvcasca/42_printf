@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 22:23:22 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/27 16:02:27 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/28 17:18:17 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	printf_write(t_lexer_status *lexer_status, char *address, int count)
 	int	byte_read;
 
 	byte_read = write(1, address, count);
+    // if (byte_read < count)
+    //     byte_read += write(1, address + byte_read, count - byte_read);
 	if (byte_read < count || INT_MAX - lexer_status->printed_count < byte_read)
 		lexer_status->return_value = -1;
 	lexer_status->printed_count += byte_read;

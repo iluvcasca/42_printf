@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:21:16 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/27 18:25:38 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/28 15:28:35 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,39 @@
 void	lexer_string_litteral(char **format, t_lexer_status *lexer_status)
 {
 	char	current_char;
+    size_t i;
 
-	while (lexer_status->lexer_state == STRING_LITTERAL && !iseof(*format, 0))
+    i = 0;
+	while (lexer_status->lexer_state == STRING_LITTERAL && !iseof(*format,i))
 	{
-		current_char = peek(*format, 0);
+		current_char = peek(*format,i);
 		if (current_char == '%')
+        {
 			lexer_status->lexer_state = FLAGS;
+            printf_write(lexer_status, *format, i);
+            if (i)
+            {
+                consume(format, i-1);
+                i = 0;
+            }
+        }
 		else
 		{
-			printf_putchar(lexer_status, &current_char);
+			// printf_putchar(lexer_status, &current_char);
 			// optimisation to be made with only a single call to write
-			consume(format, 0);
+			// consume(format, 0);
+            i++;
 		}
 	}
+    if (iseof(*format, i))
+    {
+        printf_write(lexer_status, *format, i);
+        if (i)
+            consume(format, i-1);
+        else
+            consume(format, i);
+    }
+
 }
 
 void	lexer_flags(char **format, t_lexer_status *lexer_status)
