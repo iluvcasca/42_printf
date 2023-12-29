@@ -2,7 +2,7 @@ C_FILES = ./ft_libft_utils.c ./ft_printf_Uhex.c ./ft_printf_char.c ./ft_printf_c
 O_FILES = $(C_FILES:%.c=build/%.o)
 B_C_FILES = $(C_FILES)
 B_O_FILES = $(B_C_FILES:%.c=build/%.o)
-C_FLAGS = -Wall -Werror -Wextra 
+C_FLAGS = -Wall -Werror -Wextra -O2
 NAME = libftprintf.a 
 
 .PHONY: all clean fclean re

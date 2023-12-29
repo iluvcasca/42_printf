@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:43:04 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/28 17:04:47 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/29 16:45:07 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ typedef struct s_lexer_status
 }						t_lexer_status;
 
 int						ft_printf(const char *format, ...);
-unsigned int			iseof(char *format, int index);
-char					peek(char *format, int index);
-char					consume(char **format, int index);
+unsigned int			iseof(char *format, size_t index);
+char					peek(char *format, size_t index);
+char					consume(char **format, size_t index);
 int						lexer(char **format, va_list ap);
 void					lexer_string_litteral(char **format,
 							t_lexer_status *lexer_status);
@@ -95,8 +95,6 @@ void					lexer_put_unsignedinteger(t_lexer_status *lexer_status,
 void					lexer_put_hexa(t_lexer_status *lexer_status,
 							t_case _case, va_list ap);
 void					lexer_flags(char **format,
-							t_lexer_status *lexer_status);
-void					lexer_is_valid_flags(char **format,
 							t_lexer_status *lexer_status);
 void					lexer_width(char **format,
 							t_lexer_status *lexer_status);
@@ -116,7 +114,7 @@ void					printf_width(t_lexer_status *lexer_status,
 							int effective_width, char filler);
 void					lexer_putchar(t_lexer_status *lexer_status, void *arg);
 void					printf_write(t_lexer_status *lexer_status,
-							char *address, int count);
+							char *address, size_t count);
 void					lexer_putstr2(t_lexer_status *lexer_status, void *arg,
 							size_t len, void *arg_cpy);
 void					printf_pointer_size(uintptr_t p, size_t *i);

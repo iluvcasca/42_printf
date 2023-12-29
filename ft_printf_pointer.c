@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 22:35:31 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/27 16:02:44 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/29 16:48:54 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	lexer_pointer(t_lexer_status *lexer_status, void *arg)
 	else
 	{
 		printf_pointer_size((uintptr_t)arg, &ptr_len);
-		ptr_str = malloc(sizeof(char) * ptr_len); // protect all malloc;
+		ptr_str = malloc(sizeof(char) * ptr_len);
 		if (!ptr_str)
 			return ;
 		printf_convert_pointer((uintptr_t)arg, lexer_status, ptr_str, ptr_len);

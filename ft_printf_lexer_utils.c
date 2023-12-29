@@ -6,29 +6,29 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:25:53 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/27 18:25:38 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/29 16:54:01 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	peek(char *format, int index)
+char	peek(char *format, size_t index)
 {
 	return (*(format + index));
 }
 
-unsigned int	iseof(char *format, int index)
+unsigned int	iseof(char *format, size_t index)
 {
 	if (*(format + index) == 0)
 		return (1);
 	return (0);
 }
 
-char	consume(char **format, int index)
+char	consume(char **format, size_t index)
 {
-	char char_to_return;
+	char	char_to_return;
 
-	char_to_return = *(*format + index);
+	char_to_return = (*(*format + index));
 	*format += (index + 1);
 	return (char_to_return);
 }
@@ -48,8 +48,7 @@ void	lexer_atoi(char **format, t_lexer_status *lexer_status, int *value,
 {
 	char	current_char;
 
-	while (lexer_status->lexer_state == state_map.current_state /*
-		&& !iseof(*format, lexer_status->lexer_flags.i)*/)
+	while (lexer_status->lexer_state == state_map.current_state)
 	{
 		current_char = peek(*format, lexer_status->lexer_flags.i);
 		if (ft_isdigit(current_char) && (*value) >= INT_MAX / 10 && current_char

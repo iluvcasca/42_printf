@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:21:16 by kgriset           #+#    #+#             */
-/*   Updated: 2023/12/28 15:28:35 by kgriset          ###   ########.fr       */
+/*   Updated: 2023/12/29 17:12:13 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,39 +15,30 @@
 void	lexer_string_litteral(char **format, t_lexer_status *lexer_status)
 {
 	char	current_char;
-    size_t i;
+	size_t	i;
 
-    i = 0;
-	while (lexer_status->lexer_state == STRING_LITTERAL && !iseof(*format,i))
+	i = 0;
+	while (lexer_status->lexer_state == STRING_LITTERAL && !iseof(*format, i))
 	{
-		current_char = peek(*format,i);
+		current_char = peek(*format, i);
 		if (current_char == '%')
-        {
-			lexer_status->lexer_state = FLAGS;
-            printf_write(lexer_status, *format, i);
-            if (i)
-            {
-                consume(format, i-1);
-                i = 0;
-            }
-        }
-		else
 		{
-			// printf_putchar(lexer_status, &current_char);
-			// optimisation to be made with only a single call to write
-			// consume(format, 0);
-            i++;
+			lexer_status->lexer_state = FLAGS;
+			printf_write(lexer_status, *format, i);
+			if (i)
+			{
+				consume(format, i - 1);
+				i = 0;
+			}
 		}
+		else
+			i++;
 	}
-    if (iseof(*format, i))
-    {
-        printf_write(lexer_status, *format, i);
-        if (i)
-            consume(format, i-1);
-        else
-            consume(format, i);
-    }
-
+	if (iseof(*format, i))
+	{
+		printf_write(lexer_status, *format, i);
+		consume(format, i - 1 * (i != 0));
+	}
 }
 
 void	lexer_flags(char **format, t_lexer_status *lexer_status)
@@ -55,8 +46,7 @@ void	lexer_flags(char **format, t_lexer_status *lexer_status)
 	char	current_char;
 
 	lexer_status->lexer_flags = (t_lexer_flags){};
-	while (lexer_status->lexer_state == FLAGS /*&& !iseof(*format,
-			lexer_status->lexer_flags.i + 1)*/)
+	while (lexer_status->lexer_state == FLAGS)
 	{
 		current_char = peek(*format, ++(lexer_status->lexer_flags.i));
 		if (current_char == '-')
@@ -111,8 +101,7 @@ void	lexer_type(char **format, t_lexer_status *lexer_status, va_list ap)
 	char	current_char;
 
 	current_char = peek(*format, lexer_status->lexer_flags.i);
-	if (lexer_status->lexer_state == TYPE /* && !iseof(*format,
-			lexer_status->lexer_flags.i)*/)
+	if (lexer_status->lexer_state == TYPE)
 	{
 		if (current_char == '%')
 			process_type(format, lexer_status, &current_char, printf_putchar);
