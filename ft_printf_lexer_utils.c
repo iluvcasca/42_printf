@@ -6,7 +6,7 @@
 /*   By: kgriset <kgriset@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:25:53 by kgriset           #+#    #+#             */
-/*   Updated: 2024/01/31 15:35:00 by kgriset          ###   ########.fr       */
+/*   Updated: 2024/04/05 09:30:26 by kgriset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ unsigned int	iseof(char *format, size_t index)
 
 char	consume(char **format, size_t index)
 {
-	char	char_to_return;
+	char	char_to_return ;
 
 	char_to_return = (*(*format + index));
 	*format += (index + 1);
@@ -51,20 +51,20 @@ void	lexer_atoi(char **format, t_lexer_status *lexer_status, int *value,
 	while (lexer_status->lexer_state == state_map.current_state)
 	{
 		current_char = peek(*format, lexer_status->lexer_flags.i);
-        if (ft_isdigit(current_char) && (((*value) == INT_MAX / 10 
-            && current_char - '0' > 7 ) || ((*value) > INT_MAX / 10)))
+		if (ft_isdigit(current_char) && (((*value) == INT_MAX / 10
+					&& current_char - '0' > 7) || ((*value) > INT_MAX / 10)))
 		{
 			(*value) = 0;
 			lexer_status->lexer_state = state_map.next_state;
 			lexer_status->return_value = -1;
 			(lexer_status->lexer_flags.i)++;
 		}
-        else if (ft_isdigit(current_char))
+		else if (ft_isdigit(current_char))
 		{
 			(*value) = (*value) * 10 + current_char - '0';
 			(lexer_status->lexer_flags.i)++;
 		}
-        else
+		else
 			lexer_status->lexer_state = state_map.next_state;
 	}
 }
